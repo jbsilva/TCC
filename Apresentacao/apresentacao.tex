@@ -1,0 +1,214 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%  Autor: Julio Batista Silva
+%%
+%%  Data inicial de criação: 14/Abr/2018
+%%  Data da última modificiação: 14/Abr/2018
+%%
+
+\documentclass[xcolor=x11names,compress]{beamer}
+
+%% General document %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\usepackage[brazil]{babel}
+\usepackage[utf8]{inputenc}
+\usepackage{graphicx}
+\usepackage{tikz}
+\usepackage{hyperref}
+\usepackage{epigraph}
+\setlength{\epigraphwidth}{\textwidth}
+
+\graphicspath{ {imagens/} }
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+%% Beamer Layout %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\useoutertheme[subsection=false,shadow]{miniframes}
+\useinnertheme{default}
+\usefonttheme{serif}
+\usepackage{palatino}
+
+\setbeamerfont{title like}{shape=\scshape}
+\setbeamerfont{frametitle}{shape=\scshape}
+
+\setbeamercolor*{lower separation line head}{bg=DeepSkyBlue4}
+\setbeamercolor*{normal text}{fg=black,bg=white}
+\setbeamercolor*{alerted text}{fg=red}
+\setbeamercolor*{example text}{fg=black}
+\setbeamercolor*{structure}{fg=black}
+
+\setbeamercolor*{palette tertiary}{fg=black,bg=black!10}
+\setbeamercolor*{palette quaternary}{fg=black,bg=black!10}
+
+\renewcommand{\(}{\begin{columns}}
+\renewcommand{\)}{\end{columns}}
+\newcommand{\<}[1]{\begin{column}{#1}}
+\renewcommand{\>}{\end{column}}
+
+\addtobeamertemplate{navigation symbols}{}{%
+    \usebeamerfont{footline}%
+    \usebeamercolor[fg]{footline}%
+    \hspace{1em}%
+    \insertframenumber/\inserttotalframenumber
+}
+
+%\setbeamertemplate{section in toc}[sections numbered]
+%\setbeamertemplate{subsection in toc}[subsections numbered]
+%\setbeamertemplate{subsubsection in toc}[subsubsections numbered]
+%\setcounter{section}{8}
+
+\AtBeginSection[]
+{
+  \begin{frame}
+    \frametitle{Sumário}
+    \tableofcontents[currentsection]
+  \end{frame}
+}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{document}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{frame}
+\title{Explorando o algoritmo de Viola-Jones na detecção e reconhecimento facial}
+%\subtitle{}
+\author{
+    \centerline{\noindent\includegraphics[scale=0.15]{ufscar.png}}\\
+    {\it Universidade Federal de São Carlos}\\
+    Departamento de Computação\\
+    {Julio Batista Silva - 351202}\\
+    {Orientador: Prof. Dr. Alexandre Luis Magalhães Levada}\\
+}
+\date{\today}
+\titlepage
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{frame}
+    \frametitle{Sumário}
+    \tableofcontents
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%SEC%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\section{Introdução}
+\subsection{}
+
+\begin{frame}{XXXX}
+xxxxx
+\begin{itemize}
+    \item xxxxx.
+\end{itemize}
+
+\pause
+
+xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx?
+\begin{itemize}
+    \item xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx.
+\end{itemize}
+
+\pause
+
+xxxxxxxxxxxxxxxxxxxxxxxxxxxxx?
+\begin{itemize}
+    \item xxxxxxx
+    \item xxxxxxxxxxx
+    \item xxxxxxxx
+    \item xxxxxxxxxx
+\end{itemize}
+\end{frame}
+
+\begin{frame}
+    \centerline{\noindent\includegraphics[width=0.8\linewidth]{ufscar.png}}
+\end{frame}
+
+\begin{frame}{xxxxxxxxxxxxxxxxxxxxx}
+xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx:\\
+\begin{itemize}
+    \item \textbf{Xxxx} - xxxxxxxxxxxxxxxxxxx
+    \item \textbf{Xxxxxxxxx} - xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+\end{itemize}
+\end{frame}
+
+\begin{frame}{xxxxxxxxxxxxxxxxxxxxx}
+\begin{itemize}
+    \item xxxxxxxxxxxxxxxxxxxxxx
+    \begin{block}{xxxxxxx}
+        xxxxxxxxxxxxxxxxxxx \textit{xxxxxxxx} xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx \textit{xxxxxxxx} xxxxxxxxxxxxxxxxxx
+    \end{block}
+\end{itemize}
+\end{frame}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%SEC%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Seção 2}
+%SUBSEC%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{}
+
+\begin{frame}{xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx}
+xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx?
+\begin{itemize}
+    \item xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+\end{itemize}
+
+\pause
+
+xxxxxxxxxxxxxxxxxxxxx?
+\begin{itemize}
+    \item xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx.
+\end{itemize}
+\end{frame}
+
+
+%SUBSEC%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{xxxxxxxx}
+
+\begin{frame}{xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx}
+xxxxxxxxxxxxxxxxxxxxxxxx:
+\begin{itemize}
+    \item \textbf{xxxxxxxxxxxxxxxxxxxxxxx}:
+    \begin{itemize}
+        \item \it{xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx}
+        \item \it{xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx}
+        \item \it{xxxxxxxxxxxxxxxxx}
+    \end{itemize}
+    \pause
+
+    \item \textbf{xxxxxxxxxxxxxxxxxxxxxxxxxxx} - xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+    \pause
+
+    \item \textbf{xxxxxxxxxxxxxxxxxxxxxxxx} - xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+    \pause
+
+    \item \textbf{xxxxxxxxxxxxxxxxxxxxxxxxxxxxxx} - xxxxxxxxxxxxxxxxxxxx
+\end{itemize}
+\end{frame}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%SEC%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Referências}
+\begin{frame}{Referências}
+
+\begin{itemize}
+
+    \item \href{https://youtu.be/xxxxxxxxxxx}{youtu.be/xxxxxxxxxxx}
+    \item \href{https://youtu.be/xxxxxxxxxxx}{youtu.be/xxxxxxxxxxx}
+
+    \item \href{https://www.wikipedia.org/}{Wikipedia}
+    \begin{itemize}
+        \item \href{https://en.wikipedia.org/wiki/xxxxxxxxxxxxxxxxxxxxxx}{Wikipedia: xxxxxxxxxxxxxxxxxxxxxx}
+    \end{itemize}
+
+    \item \href{https://juliobs.com}{Site do Julio}
+
+\end{itemize}
+
+\end{frame}
+
+\end{document}
