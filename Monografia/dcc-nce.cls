@@ -147,12 +147,6 @@
 \newcommand{\codigobiblioteca}[1]{\gdef\@codigobiblioteca{#1}}
 
 %==============================================================================
-% Definição do Departamento relacionado ao documento
-% deve ser definido como `ina' ou `int'
-%==============================================================================
-\newcommand{\dept}[1]{\gdef\@dept{#1}}
-
-%==============================================================================
 % Definição das palavras-chave (máx. 10)
 %==============================================================================
 \newcounter{kwcounter}
@@ -207,7 +201,7 @@
         \gdef\@city{#1}
         \gdef\@state{#2}
 }
-\location{Rio~de~Janeiro}{RJ}
+\location{São~Carlos}{SP}
 \renewcommand{\maketitle}{%
         \begin{titlepage}
                 \thetitlepage
@@ -285,12 +279,10 @@
 %       }%
 }
 \newcommand{\course}[1]{\gdef\@course{#1}}
-\course{\ppgc}
+\course{\enc}
 \newcommand{\titlepagetopinfo}{%
-        \MakeUppercase{\ufrgs}\\
-        \MakeUppercase{\ii}\\
-		\MakeUppercase{\itp}\\
-        \@ifundefined{@dept}{}{\MakeUppercase{\csname dept\@dept\endcsname}\\}%
+        \MakeUppercase{\ufscar}\\
+        \MakeUppercase{\dc}\\
         \MakeUppercase{\@course}\\
 }
 \newcommand{\titlepageadvisorinfo}{%
@@ -315,7 +307,7 @@
         %}
 		
 		\hspace*{\fill}\parbox[b]{.5\textwidth}{%
-				\noindent Dissertação de Mestrado submetida ao Corpo Docente do Departamento de Ciência da Computação do Instituto de Matemática, e Instituto Tércio Pacitti de Aplicações e Pesquisas Computacionais da Universidade Federal do Rio de Janeiro, como parte dos requisitos necessários para obtenção do título de Mestre em Informática.
+				\noindent Trabalho de conclusão do curso de graduação em engenharia de computação submetida ao Corpo Docente do Departamento de Computação da Universidade Federal de São Carlos, como parte dos requisitos necessários para obtenção do título de engenheiro de computação.
         }
 		\vfill 
 		\vfill
@@ -371,38 +363,33 @@
                 \indent\@title\ / \@authora.\ -- \@date.\newline
                 %\indent\pageref{LastPage}~f.: il.\par
                 \indent\totalpages~f.: il.\par
-                %Dissertação (Mestrado em Informática)\ -- \ufrgs. \@course, \@city, BR--\@state, \@date. \par \advisorname: \@advisorfirst\ \@advisorlast\@ifundefined{@coadvisor}{}{; \coadvisorname: \@coadvisorfirst\ \@coadvisorlast}.\par
-                \indent Dissertação (Mestrado em Informática)\ -- \ufrgs, \ii, \itp, \ppgc, \@city, \@date. \par 
+                \indent Trabalho de Conclusão de Curso -- \ufscar, \dc, \@city, \@date. \par 
 				\indent\advisorname: \@advisorfirst\ \@advisorlast.\newline
-				\indent\@ifundefined{@coadvisor}{}{\coadvisorname: \@coadvisorfirst\ \@coadvisorlast}.\par
-				\indent\@cipkw -- Teses. I.~\@advisorlast, \@advisorfirst~(Orient.). \@ifundefined{@coadvisorfirst}{II. \ufrgs, \ii, \itp, \ppgc. III. Título}{II.~\@coadvisorlast, \@coadvisorfirst~(Co-orient.). III. \ufrgs, \ii, \itp, \ppgc. IV. Título}\par
+				\indent\@ifundefined{@coadvisor}{}{\coadvisorname: \@coadvisorfirst\ \@coadvisorlast.}\par
+				\indent\@cipkw -- TCC. I.~\@advisorlast, \@advisorfirst~(Orient.). \@ifundefined{@coadvisorfirst}{II. \ufscar, \dc, \enc. III. Título}{II.~\@coadvisorlast, \@coadvisorfirst~(Co-orient.). III. \ufscar, \dc. IV. Título}\par
 				\indent~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~CDD~~~~~~~~~~~~~~~~~~~~~~~~~~~~\\
                 \vspace{0.2ex}
         \end{minipage}%
         }%
 }
-\newcommand{\nominataReit}{Prof.~Jos{\'e} Carlos Ferraz Hennemann}
-\newcommand{\nominataReitname}{Reitor}
-\newcommand{\nominataPRCA}{Prof.~Pedro Cezar Dutra Fonseca}
+\newcommand{\nominataReit}{Prof\textsuperscript{a}.~ Wanda Hoffmann}
+\newcommand{\nominataReitname}{Reitora}
+\newcommand{\nominataPRCA}{Prof.~XXXXX}
 \newcommand{\nominataPRCAname}{Pr{\'o}-Reitor de Coordena{\c{c}}{\~a}o Acad{\^e}mica}
-% os dois proximos comandos nao sao mais usados
-\newcommand{\nominataPRE}{Prof.~Jos{\'e} Carlos Ferraz Hennemann}
-\newcommand{\nominataPREname}{Pr{\'o}-Reitor de Ensino}
-\newcommand{\nominataPRAPG}{Prof\textsuperscript{a}.~Valqu{\'\i}ria Linck Bassani}
-\newcommand{\nominataPRAPGname}{Pr{\'o}-Reitora de P{\'o}s-Gradua{\c{c}}{\~a}o}
-\newcommand{\nominataDir}{Prof.~Philippe Olivier Alexandre Navaux}
-\newcommand{\nominataDirname}{Diretor do Instituto de Inform{\'a}tica}
-\newcommand{\nominataCoord}{Prof.~Carlos Alberto Heuser}
-\newcommand{\nominataCoordname}{Coordenador do PPGC}
-\newcommand{\nominataBibchefe}{Beatriz Regina Bastos Haro}
-\newcommand{\nominataBibchefename}{Bibliotec{\'a}ria-chefe do
-  Instituto de Inform{\'a}tica}
-\newcommand{\nominataChefeINA}{Prof.~Jos{\'e} Valdeni de Lima}
-\newcommand{\nominataChefeINAname}{Chefe do \deptINA}
-\newcommand{\nominataChefeINT}{Prof.~Leila Ribeiro}
-\newcommand{\nominataChefeINTname}{Chefe do \deptINT}
+\newcommand{\nominataPRAPG}{Prof\textsuperscript{a}.~XXXXX XXXXX}
+\newcommand{\nominataPRAPGname}{Engenharia de Computação}
+\newcommand{\nominataDir}{Prof.~XXX XXXX}
+\newcommand{\nominataDirname}{Diretor do DC}
+\newcommand{\nominataCoord}{Prof.~Ricardo Menotti}
+\newcommand{\nominataCoordname}{Coordenador do curso de Engenharia de Computação}
+\newcommand{\nominataBibchefe}{XXXX XXXX XXXX}
+\newcommand{\nominataBibchefename}{Bibliotec{\'a}ria-chefe}
+%\newcommand{\nominataChefeINA}{Prof.~Hélio}
+%\newcommand{\nominataChefeINAname}{Chefe do \deptINA}
+%\newcommand{\nominataChefeINT}{Prof.~Hélio}
+%\newcommand{\nominataChefeINTname}{Chefe do \deptINT}
 \newcommand{\nominata}{
-        \MakeUppercase{\ufrgs}\\
+        \MakeUppercase{\ufscar}\\
         \nominataReitname: \nominataReit\\
         \nominataPRCAname: \nominataPRCA\\
         \nominataPRAPGname: \nominataPRAPG\\
@@ -428,11 +415,11 @@
         ~
         \end{center}
 		\hspace*{\fill}\parbox[b]{.6\textwidth}{%
-				\noindent Dissertação de Mestrado submetida ao Corpo Docente do Departamento de Ciência da Computação do Instituto de Matemática, e Instituto Tércio Pacitti de Aplicações e Pesquisas Computacionais da Universidade Federal do Rio de Janeiro, como parte dos requisitos necessários para obtenção do título de Mestre em Informática.
+				\noindent Trabalho de conclusão de curso xxxxxxxxxxxxx.
         }\\
         
 		\begin{flushleft}
-        \noindent Aprovado em: Rio de Janeiro, \underline{\hspace{1cm}} de \underline{\hspace{3cm}} de \underline{\hspace{2cm}}.\\
+        \noindent Aprovado em: São Carlos, \underline{\hspace{1cm}} de \underline{\hspace{3cm}} de \underline{\hspace{2cm}}.\\
         \end{flushleft}
 		                
                 ~
@@ -562,7 +549,7 @@
 %==============================================================================
 \renewenvironment{abstract}{
 	\chapter*{\abstractname}
-	\noindent\@authoralast, \@authorafirst. \textbf{\@title}. \@date. \pageref{LastPage}~f. Disserta\c{c}\~ao (Mestrado em Inform\'atica) - PPGI, Instituto de Matem\'atica, Instituto T\'ercio Pacitti de Aplica\c{c}\~oes e Pesquisas Computacionais, Universidade Federal do Rio de Janeiro, \@city, \@date.\\\\
+	\noindent\@authoralast, \@authorafirst. \textbf{\@title}. \@date. \pageref{LastPage}~f. Trabalho de conclusão de curso, \@city, \@date.\\\\
 	\par
 }{
 	\par
@@ -578,7 +565,7 @@
 	\gdef\@englishkeywords{#2}%
 	\begin{otherlanguage}{english}
 		\chapter*{\abstractname}
-		\noindent\@authoralast, \@authorafirst. \textbf{\@title}. \@date. \pageref{LastPage}~f. Disserta\c{c}\~ao (Mestrado em Inform\'atica) - PPGI, Instituto de Matem\'atica, Instituto T\'ercio Pacitti de Aplica\c{c}\~oes e Pesquisas Computacionais, Universidade Federal do Rio de Janeiro, \@city, \@date.\\\\
+		\noindent\@authoralast, \@authorafirst. \textbf{\@title}. \@date. \pageref{LastPage}~f. TCC UFSCar, \@city, \@date.\\\\
 
         % os 22ex abaixo fazem o título em inglês iniciar a
         % aproximadamente 5cm da borda superior
