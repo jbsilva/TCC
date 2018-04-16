@@ -1,24 +1,28 @@
-# Baseado em http://tex.stackexchange.com/questions/40738/how-to-properly-make-a-latex-project
+LATEXMK		= latexmk
+LATEXMKOPT	= -bibtex -pdf
+CONTINUOUS	= -pvc
 
-# You want latexmk to *always* run, because make does not have all the info.
-# Also, include non-file targets in .PHONY so they are run regardless of any
-# file of the given name existing.
-.PHONY: dissertacao.pdf all clean
+LATEX		= pdflatex
+LATEXOPT	= --shell-escape
+NONSTOP		= --interaction=nonstopmode
 
-# The first rule in a Makefile is the one executed by default ("make"). It
-# should always be the "all" rule, so that "make" and "make all" are identical.
-all: dissertacao.pdf
+JOBNAME		= Silva_JB-TCC
 
-# MAIN LATEXMK RULE
+DEBUG		= '\def\DEBUG{} \input{%S}'
 
-# -pdf tells latexmk to generate PDF directly (instead of DVI).
-# -pdflatex="" tells latexmk to call a specific backend with specific options.
-# -use-make tells latexmk to call make for generating missing files.
-# -interactive=nonstopmode keeps the pdflatex backend from stopping at a
-# missing file reference and interactively asking you for an alternative.
 
-dissertacao.pdf: main.tex
-	latexmk -bibtex -pdf main.tex
+all: monografia clean
+
+monografia: main.tex
+	$(LATEXMK) $(LATEXMKOPT) -pdflatex="$(LATEX) $(LATEXOPT) %O %S" -jobname=$(JOBNAME) main.tex
+
+debug: main.tex
+	$(LATEXMK) $(LATEXMKOPT) $(CONTINUOUS) -pdflatex="$(LATEX) $(LATEXOPT) $(NONSTOP) %O $(DEBUG)" -jobname=$(JOBNAME) main.tex
 
 clean:
-	latexmk -C -bibtex
+	$(LATEXMK) -c -jobname=$(JOBNAME) main.tex
+
+cleanall:
+	$(LATEXMK) -C -bibtex -jobname=$(JOBNAME) main.tex
+
+.PHONY: all clean cleanall
