@@ -4,7 +4,28 @@
 \usepackage{color,graphicx}
 \usepackage{graphics}
 \usepackage{url}
+\usepackage{adjustbox}
 \usepackage{amsmath,amssymb}
+\usepackage{siunitx}
+\usepackage{subcaption}
+\usepackage{tikz}
+\usetikzlibrary{arrows,automata,calc,fit,matrix,positioning,shadows,shapes}
+
+%%%%% Tabelas com Tikz %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\tikzset{square matrix/.style={
+    matrix of nodes,
+    column sep=-\pgflinewidth, row sep=-\pgflinewidth,
+    nodes={draw,
+      minimum height=#1,
+      anchor=center,
+      text width=#1,
+      align=center,
+      inner sep=0pt
+    },
+  },
+  square matrix/.default=2em
+}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 %Para citar textualmente ao invés de com números, basta
 % escrever \usepackage{natbib} ao invés da linha abaixo.
@@ -61,20 +82,20 @@
 \input{pre-text/palavrasChavePortugues}    % Editar o arquivo palavrasChavePortugues
 
 %O restante vem depois:
-\input{pre-text/capa}                      % Editar o arquivo capa.tex
+\input{pre-text/capa}
 
 \pagenumbering{roman} %numeração de páginas em romano começa a partir do primeiro capítulo
 
-\input{pre-text/dedicatoria}     % Editar o arquivo dedicatoria.tex
-\input{pre-text/agradecimentos}  % Editar o arquivo agradecimentos.tex
-\input{pre-text/resumoPortugues} % Editar o arquivo resumoPortugues.tex
-\input{pre-text/resumoIngles}    % Editar o arquivo resumoIngles.tex
+\input{pre-text/dedicatoria}
+\input{pre-text/agradecimentos}
+\input{pre-text/resumoPortugues}
+\input{pre-text/resumoIngles}
 
 \listoffigures{}
 
 \listoftables{}
 
-%\input{pre-text/listaAbreviaturaSiglas}    % Editar o arquivo listaAbreviaturaSiglas.tex
+\input{pre-text/listaAbreviaturaSiglas}    % Editar o arquivo listaAbreviaturaSiglas.tex
 
 \tableofcontents{}                  % Sumário
 
@@ -84,10 +105,10 @@
 
 \pagenumbering{arabic} %numeração de páginas em arábico começa a partir do primeiro capítulo
 
-\input{chapters/introducao}	% Editar o arquivo introducao.tex
-\input{chapters/capituloA}	% Editar o arquivo capituloA.tex
-\input{chapters/capituloB}	% Editar o arquivo capituloB.tex
-\input{chapters/conclusao}	% Editar o arquivo introducao.tex
+\input{chapters/introducao}%
+\input{chapters/capituloA}%
+\input{chapters/capituloB}%
+\input{chapters/conclusao}%
 
 \bibliography{post-text/referencias}       % Editar o arquivo "referencias.bib"
 \bibliographystyle{latex-stuff/abnt-ufrgs} % Procura pelo arquivo "abnt-ufrgs" - normas ABNT.

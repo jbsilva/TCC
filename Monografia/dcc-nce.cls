@@ -31,7 +31,7 @@
 % Identificação
 %==============================================================================
 \NeedsTeXFormat{LaTeX2e}
-\ProvidesClass{dcc-nce}[2005/01/14 v4.3.1 Formatacao de documentos para o DCC/NCE/UFRJ]
+\ProvidesClass{dcc-nce}[2005/01/14 v4.3.1 Formatacao de documentos para o DC/UFSCar]
 
 %==============================================================================
 % Declaração de opções
@@ -202,20 +202,19 @@
         \gdef\@state{#2}
 }
 \location{São~Carlos}{SP}
-\renewcommand{\maketitle}{%
+\renewcommand{\maketitle}{
         \begin{titlepage}
                 \thetitlepage
-        \end{titlepage}%
+        \end{titlepage}
         \clearpage
-		\setcounter{page}{2}%
+		\setcounter{page}{2}
         \@ifundefined{@cipspecificinfo}{}{\@makefrontpage}
         \clearpage
-        \setcounter{page}{3}%
+        \setcounter{page}{3}
         \@ifundefined{@cipspecificinfo}{}{\@makecippage}
         \clearpage
-        \setcounter{page}{4}%
+        \setcounter{page}{4}
         \@ifundefined{@cipspecificinfo}{}{\@makeapprovalpage}
-
 }
 \newcommand{\thetitlepage}{%
         \noindent\@topbox\\
@@ -291,23 +290,16 @@
 }
 
 %==============================================================================
-% Folha de rosto (Com a descrição "Dissertação de mestrado submetida...")
+% Folha de rosto
 %==============================================================================
-\newcommand{\@makefrontpage}{%
+\newcommand{\@makefrontpage}{
 
 	   \thispagestyle{empty}
 	   
        \noindent\@topbox\\
         \vfill
-        %\@ifundefined{titlepagespecificinfo}{}{
-        %        \hspace*{\fill}\makebox[.5\textwidth][l]{%
-        %                \parbox[b]{8.5cm}{\raggedright\titlepagespecificinfo}%
-        %        }
-        %        \vfill
-        %}
-		
 		\hspace*{\fill}\parbox[b]{.5\textwidth}{%
-				\noindent Trabalho de conclusão do curso de graduação em engenharia de computação submetida ao Corpo Docente do Departamento de Computação da Universidade Federal de São Carlos, como parte dos requisitos necessários para obtenção do título de engenheiro de computação.
+				\noindent Trabalho de conclusão do curso de graduação em engenharia de computação submetido ao Corpo Docente do Departamento de Computação da Universidade Federal de São Carlos como parte dos requisitos necessários para obtenção do título de engenheiro de computação.
         }
 		\vfill 
 		\vfill
@@ -315,12 +307,7 @@
 		\vfill
 
         \@ifundefined{@advisor}{}{
-                %\hspace*{\fill}\parbox[b]{.5\textwidth}{%
-                %        {\titlepageadvisorinfo}
-                %}
-				%\begin{center}
 						{\titlepageadvisorinfo}
-				%\end{center}
                 \vfill
 				\vfill
 				\vfill
@@ -342,14 +329,13 @@
 
 		\thispagestyle{empty}
 		
-        \clearpage%
+        \clearpage
         \begin{center}
 				%\textbf{Ficha Catalográfica}\\[2ex]
                 \textbf{ }\\[48ex]
                 \iiu@cipwindow
         \end{center}
         \vfill
-        %\nominata
 }
 % definição do quadro
 \def\iiu@cipwindow{%
@@ -415,7 +401,7 @@
         ~
         \end{center}
 		\hspace*{\fill}\parbox[b]{.6\textwidth}{%
-				\noindent Trabalho de conclusão de curso xxxxxxxxxxxxx.
+				\noindent Trabalho de conclusão de curso.
         }\\
         
 		\begin{flushleft}
@@ -549,7 +535,8 @@
 %==============================================================================
 \renewenvironment{abstract}{
 	\chapter*{\abstractname}
-	\noindent\@authoralast, \@authorafirst. \textbf{\@title}. \@date. \pageref{LastPage}~f. Trabalho de conclusão de curso, \@city, \@date.\\\\
+	\noindent\@authoralast, \@authorafirst. \textbf{\@title}. \@date. \pageref{LastPage}~f. TCC UFSCar, \@city, \@date.
+	\vspace{1cm}
 	\par
 }{
 	\par
@@ -562,18 +549,11 @@
 	\else
 		\clearpage
 	\fi
-	\gdef\@englishkeywords{#2}%
+	\gdef\@englishkeywords{#2}
 	\begin{otherlanguage}{english}
 		\chapter*{\abstractname}
-		\noindent\@authoralast, \@authorafirst. \textbf{\@title}. \@date. \pageref{LastPage}~f. TCC UFSCar, \@city, \@date.\\\\
-
-        % os 22ex abaixo fazem o título em inglês iniciar a
-        % aproximadamente 5cm da borda superior
-        \noindent\raisebox{22ex}[0pt][0pt]{%
-			\parbox[t]{\textwidth}{\centering\textbf{#1}}
-		}
-
-		\vspace{-\baselineskip}
+		\noindent\@authoralast, \@authorafirst. \textbf{\@title}. \@date. \pageref{LastPage}~f. TCC UFSCar, \@city, \@date.
+		\vspace{1cm}
 		\par
 }{
         \par
@@ -622,7 +602,7 @@
         \setcounter{chapter}{0}%
         \renewcommand{\thechapter}{\Alph{chapter}}%
         \setcounter{tocdepth}{0}%
-        \@captionlistingfalse%
+%        \@captionlistingfalse%
         \gdef\@chapapp{\MakeUppercase{#1}\space}%
         \addtocontents{toc}{%
           \settowidth{\ii@chapnumindent}{{\sffamily\textbf{\@chapapp}}}
@@ -654,24 +634,24 @@
 %==============================================================================
 % Redefinição do conteúdo das listas de figuras e tabelas
 %==============================================================================
-\newif\if@captionlisting\@captionlistingtrue
-\long\def\@caption#1[#2]#3{%
-  \par
-  \if@captionlisting%
-    \addcontentsline{\csname ext@#1\endcsname}{#1}%
-        {\protect\numberline{\csname fnum@#1\endcsname:}{\ignorespaces #2}}%
-  \fi%
-  \begingroup
-    \@parboxrestore
-    \if@minipage
-      \@setminipage
-    \fi
-    \normalsize
-    \@makecaption{\csname fnum@#1\endcsname}{\ignorespaces #3}\par
-  \endgroup%
-}
-\renewcommand*{\l@figure}{\@dottedtocline{1}{0em}{5.5em}}
-\let\l@table\l@figure
+%\newif\if@captionlisting\@captionlistingtrue
+%\long\def\@caption#1[#2]#3{%
+%  \par
+%  \if@captionlisting%
+%    \addcontentsline{\csname ext@#1\endcsname}{#1}%
+%        {\protect\numberline{\csname fnum@#1\endcsname:}{\ignorespaces #2}}%
+%  \fi%
+%  \begingroup
+%    \@parboxrestore
+%    \if@minipage
+%      \@setminipage
+%    \fi
+%    \normalsize
+%    \@makecaption{\csname fnum@#1\endcsname}{\ignorespaces #3}\par
+%  \endgroup%
+%}
+%\renewcommand*{\l@figure}{\@dottedtocline{1}{0em}{5.5em}}
+%\let\l@table\l@figure
 
 %==============================================================================
 % Redefinição do formato de citações longas
