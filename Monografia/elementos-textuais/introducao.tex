@@ -5,40 +5,24 @@
 % \addcontentsline{toc}{chapter}{Introdução}
 % ----------------------------------------------------------
 
-Este documento e seu código-fonte são exemplos de referência de uso da classe
-\textsf{abntex2} e do pacote \textsf{abntex2cite}. O documento 
-exemplifica a elaboração de trabalho acadêmico (tese, dissertação e outros do
-gênero) produzido conforme a ABNT NBR 14724:2011 \emph{Informação e documentação
-- Trabalhos acadêmicos - Apresentação}.
+%\chapter{Introdução}
 
-A expressão ``Modelo Canônico'' é utilizada para indicar que \abnTeX\ não é
-modelo específico de nenhuma universidade ou instituição, mas que implementa tão
-somente os requisitos das normas da ABNT. Uma lista completa das normas
-observadas pelo \abnTeX\ é apresentada em \citeonline{abntex2classe}.
+A capacidade de identificar faces e suas emoções é um importante mecanismo neurológico para interações sociais que, em certo grau, está presente até mesmo em recém nascidos \cite{morton1991conspec} \cite{fantz1961origin}.
 
-Sinta-se convidado a participar do projeto \abnTeX! Acesse o site do projeto em
-\url{http://abntex2.googlecode.com/}. Também fique livre para conhecer,
-estudar, alterar e redistribuir o trabalho do \abnTeX, desde que os arquivos
-modificados tenham seus nomes alterados e que os créditos sejam dados aos
-autores originais, nos termos da ``The \LaTeX\ Project Public
-License''\footnote{\url{http://www.latex-project.org/lppl.txt}}.
+Enquanto humanos possuem uma notável capacidade de reconhecer faces, o desenvolvimento de sistemas computacionais com capacidade similar é uma área de pesquisa em andamento há mais de cinco décadas \cite{bledsoe1964facial} \cite{chan1965man} \cite{bledsoe1966man} \cite{bledsoe1966model} \cite{boyer1991biographical} \cite{kelly1970visual} \cite{kanade1973picture}.
 
-Encorajamos que sejam realizadas customizações específicas deste exemplo para
-universidades e outras instituições --- como capas, folha de aprovação, etc.
-Porém, recomendamos que ao invés de se alterar diretamente os arquivos do
-\abnTeX, distribua-se arquivos com as respectivas customizações.
-Isso permite que futuras versões do \abnTeX~não se tornem automaticamente
-incompatíveis com as customizações promovidas. Consulte
-\citeonline{abntex2-wiki-como-customizar} par mais informações.
+O desenvolvimento de modelos computacionais para reconhecimento facial são de interesse para diversas aplicações práticas como identificação criminal, sistemas de segurança, biometria, processamento de imagens e interação humano-computador.
 
-Este documento deve ser utilizado como complemento dos manuais do \abnTeX\ 
-\cite{abntex2classe,abntex2cite,abntex2cite-alf} e da classe \textsf{memoir}
-\cite{memoir}. 
+Infelizmente, o desenvolvimento de um sistema computacional para reconhecimento facial automatizado é bastante difícil por diversos motivos. Faces são complexas, multidimensionais e expressivas \cite{turk1991eigenfaces} e as imagens podem sofrer variações em escala, localização, ponto de visão, iluminação e obstrução \cite{censtudy}.
 
-Esperamos, sinceramente, que o \abnTeX\ aprimore a qualidade do trabalho que
-você produzirá, de modo que o principal esforço seja concentrado no principal:
-na contribuição científica.
+\section{Motivação}\label{sec:motivacao}
 
-Equipe \abnTeX 
+O desenvolvimento de novos algoritmos de processamento de imagens acompanhado do maior acesso a câmeras digitais, hardwares com alto poder de processamento, bibliotecas para visão computacional, como a OpenCV, e APIs de análise de imagem, como o Google Vision, o Microsoft Cognitive Services, o Amazon Rekognition e o IBM Watson Visual Recognition, tornou viável a implantação de sistemas com detecção e reconhecimento facial em diversas empresas e produtos.
 
-Lauro César Araujo
+Nos últimos anos, lojas de varejo têm usado com sucesso as tecnologias de detecção e reconhecimento facial para segurança, personalização de serviço, marketing e análise de sentimento \cite{fortune2015walmart} \cite{exame2018pontofrio} \cite{2017recfacial}.
+
+Este trabalho explora um algoritmo de grande impacto na última década, o algoritmo Viola-Jones, e foi motivado pela implementação de um sistema de reconhecimento facial em uma rede de lojas de varejo na cidade do Rio de Janeiro.
+
+\section{Objetivos}\label{sec:objetivos}
+
+O objetivo deste trabalho é fornecer uma base teórica para uma futura implantação de um sistema de reconhecimento facial, através do estudo do algoritmo de Viola-Jones.

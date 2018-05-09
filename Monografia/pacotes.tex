@@ -36,4 +36,27 @@
 \usepackage{lipsum}             % para geração de dummy text
 
 % TODO inserir seus pacotes aqui
+\usepackage{url}
+\usepackage{adjustbox}
+\usepackage{amsmath,amssymb}
+\usepackage{siunitx}
+\usepackage{subcaption}
+\usepackage{tikz}
+\usetikzlibrary{arrows,automata,calc,fit,matrix,positioning,shadows,shapes}
 
+
+%%%%% Tabelas com Tikz %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\tikzset{square matrix/.style={
+    matrix of nodes,
+    column sep=-\pgflinewidth, row sep=-\pgflinewidth,
+    nodes={draw,
+      minimum height=#1,
+      anchor=center,
+      text width=#1,
+      align=center,
+      inner sep=0pt
+    },
+  },
+  square matrix/.default=2em
+}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
