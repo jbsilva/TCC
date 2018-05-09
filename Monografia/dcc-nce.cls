@@ -58,8 +58,8 @@
 %==============================================================================
 \LoadClass[12pt,a4paper,twoside]{report}
 \RequirePackage[english,brazilian]{babel}
-\input{brazilian.babel}
-\input{english.babel}
+\input{babel/brazilian.babel}
+\input{babel/english.babel}
 \if@english
         \selectlanguage{english}
         \AtBeginDocument{\selectlanguage{english}}
@@ -67,7 +67,59 @@
 \RequirePackage{lastpage}
 \RequirePackage{indentfirst}
 \RequirePackage{iidefs}
-%\RequirePackage{natbib}
+\RequirePackage{hyperref}
+\RequirePackage{color}
+
+%==============================================================================
+% Códigos
+%==============================================================================
+\definecolor{dkgreen}{rgb}{0,0.6,0}
+\definecolor{gray}{rgb}{0.5,0.5,0.5}
+\definecolor{black}{rgb}{0,0,0}
+\definecolor{blue}{rgb}{0,0,0.4}
+\definecolor{purple}{rgb}{0.8,0,0.3}
+\definecolor{orange}{rgb}{1,0.4,0}
+
+\newcommand{\codejava}[3]{
+  \mbox{
+    \lstset{framexleftmargin=5mm, frame=shadowbox, rulesepcolor=\color{gray}}
+    \lstinputlisting[language=Java,
+      breaklines=true,
+      basicstyle=\footnotesize\ttfamily,
+      keywordstyle=\bfseries\color{purple},
+      commentstyle=\itshape\color{dkgreen},
+      stringstyle=\color{orange},
+      showstringspaces=false,
+      rulecolor=\color{black},
+      caption=#1,label=#2]{#3}
+  }
+}
+
+\newcommand{\codec}[3]{
+  \mbox{
+    \lstset{framexleftmargin=5mm, frame=shadowbox, rulesepcolor=\color{gray}}
+    \lstinputlisting[language=C,
+      breaklines=true,
+      basicstyle=\footnotesize\ttfamily,
+      keywordstyle=\bfseries\color{dkgreen},
+      commentstyle=\itshape\color{purple},
+      identifierstyle=\color{blue},
+      stringstyle=\color{orange},
+      showstringspaces=false,
+      caption=#1,label=#2]{#3}
+  }
+}
+
+%=====================================================================
+% Referências
+%=====================================================================
+\newcommand{\reffigure}[1]{\figurename~\ref{#1}}
+\newcommand{\reftable}[1]{\tablename~\ref{#1}}
+\newcommand{\reflisting}[1]{\lstlistingname~\ref{#1}}
+\newcommand{\refchapter}[1]{\chaptername~\ref{#1}}
+\newcommand{\refsection}[1]{\sectionname~\ref{#1}}
+\newcommand{\refequation}[1]{\equationname~\ref{#1}}
+\newcommand{\refappendix}[1]{\appendixname~\ref{#1}}
 
 %==============================================================================
 % Margens do texto
@@ -652,6 +704,15 @@
 %}
 %\renewcommand*{\l@figure}{\@dottedtocline{1}{0em}{5.5em}}
 %\let\l@table\l@figure
+
+%=====================================================================
+% Definição do conteúdo de listas de algoritmos
+%=====================================================================
+\newcommand{\makelistingspage}{
+  \addcontentsline{toc}{chapter}{\lstlistlistingname} 
+  \lstlistoflistings{}
+  \pagebreak
+}{}
 
 %==============================================================================
 % Redefinição do formato de citações longas
