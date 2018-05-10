@@ -23,10 +23,12 @@ clean:
 	$(LATEXMK) -c -jobname=$(JOBNAME) principal.tex
 	find . -name \*.nlo -type f -delete
 	find . -name \*.brf -type f -delete
+	find . -name \*.bbl -type f -delete
 
 cleanall:
 	$(LATEXMK) -C -bibtex -jobname=$(JOBNAME) principal.tex
 	find . -name \*.nlo -type f -delete
 	find . -name \*.brf -type f -delete
+	find . -name \*.bbl -type f -delete
 
 .PHONY: all clean cleanall
