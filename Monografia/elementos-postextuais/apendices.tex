@@ -8,13 +8,49 @@
 % Imprime uma página indicando o início dos apêndices
 \partapendices
 
-\chapter{Quisque libero justo}
+\chapter{Código do detector facial}\label{cap:anexo_detector_facial_opencv}
 
-\lipsum[50]
+\begin{code}
+\caption{Detector facial usando a biblioteca OpenCV}
+\label{cod:detector_facial_opencv}
+\inputminted{python}{codigos/detector_facial.py}
+\end{code}
+% ----------------------------------------------------------
 
-\chapter{Nullam elementum urna vel imperdiet sodales elit ipsum pharetra ligula
-ac pretium ante justo a nulla curabitur tristique arcu eu metus}
-\lipsum[55-57]
+\chapter{Código para Raspberry Pi do detector facial usando OpenCV}\label{cap:anexo_detector_raspberry}
+
+\begin{code}
+\caption{Detector facial usando OpenCV e picamera}
+\label{cod:detector_opencv_picamera}
+\inputminted{python}{codigos/detector_facial_picamera.py}
+\end{code}
+% ----------------------------------------------------------
+
+\chapter{Código usado para gerar gráficos para ilustrar funcionamento do PCA}\label{cap:ilustra_pca}
+
+\begin{code}
+\caption{Código gerador dos gráficos da \autoref{fig:pca}}
+\label{cod:ilustra_pca}
+\inputminted{python}{codigos/eigenfaces.py}
+\end{code}
+% ----------------------------------------------------------
+
+\chapter{Código usado para obter imagens da face média e dos componentes principais}\label{cap:pca_opencv}
+
+\begin{code}
+\caption{Ilustração }
+\label{cod:pca_opencv}
+\inputminted{python}{codigos/eigenfaces.py}
+\end{code}
+% ----------------------------------------------------------
+
+\chapter{Código do reconhecedor de faces por Eigenfaces usando OpenCV}\label{cap:eigenfaces_opencv}
+
+\begin{code}
+\caption{Reconhecimento facial por Eigenfaces usando OpenCV}
+\label{cod:eigenfaces_opencv}
+\inputminted{python}{codigos/eigenfaces.py}
+\end{code}
+% ----------------------------------------------------------
 
 \end{apendicesenv}
-

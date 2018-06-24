@@ -9,12 +9,27 @@
 \usepackage{color}              % Controle das cores
 \usepackage{graphicx}           % Inclusão de gráficos
 \usepackage{microtype}          % para melhorias de justificação
-\usepackage{listings}           % Inserir código de linguagem de programação
+\usepackage[newfloat]{minted}   % Pygments
 \usepackage{nomencl}            % Necessário para o commando makeindex
-        
-% Pacotes de citações
-\usepackage[brazilian,hyperpageref]{backref}     % Paginas com as citações na bibl
+\usepackage[brazilian,hyperpageref]{backref}    % Paginas com as citações na bibl
 \usepackage[alf]{abntex2cite}   % Citações padrão ABNT
+\usepackage{lipsum}             
+\usepackage{adjustbox}
+\usepackage{amsmath,amssymb}
+\usepackage{siunitx}
+\usepackage{booktabs}
+\usepackage{longtable}
+\usepackage{tabu}
+\usepackage{multirow}
+\usepackage{subcaption}
+%\usepackage{epigraph}
+\usepackage{lscape}
+\usepackage{xurl}               % Quebra links longos direito
+\usepackage[ruled,vlined,portuguese,onelanguage]{algorithm2e} %for psuedo code
+\usepackage{tikz}
+\usetikzlibrary{arrows,automata,calc,chains,fit,matrix,positioning,quotes,shadows,shapes}
+\usepackage{pgfplots}
+\pgfplotsset{compat=newest,compat/show suggested version=false}
 
 % CONFIGURAÇÕES DE PACOTES
 % Configurações do pacote backref
@@ -32,20 +47,13 @@
         Citado #1 vezes nas páginas #2.%
     \fi}%
 
-% Pacotes adicionais, usados apenas no âmbito do Modelo Canônico do abnteX2
-\usepackage{lipsum}             % para geração de dummy text
+% Corrige bug do anexo (https://github.com/abntex/abntex2/issues/76)
+\newcommand{\refanexo}[1]{\hyperref[#1]{Anexo~\ref{#1}}}
 
-% TODO inserir seus pacotes aqui
-\usepackage{url}
-\usepackage{adjustbox}
-\usepackage{amsmath,amssymb}
-\usepackage{siunitx}
-\usepackage{subcaption}
-\usepackage{tikz}
-\usetikzlibrary{arrows,automata,calc,fit,matrix,positioning,shadows,shapes}
-
-
-%%%%% Tabelas com Tikz %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% TIKZ
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Tabelas
 \tikzset{square matrix/.style={
     matrix of nodes,
     column sep=-\pgflinewidth, row sep=-\pgflinewidth,
@@ -59,4 +67,63 @@
   },
   square matrix/.default=2em
 }
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+% Distância entre extremidades de dois nós
+\makeatletter
+\def\DistanciaExtremidades(#1,#2)#3{%
+\pgfpointdiff{\pgfpointanchor{#1}{west}}{\pgfpointanchor{#2}{east}}
+\pgfmathsetmacro{\myheight}{veclen(\pgf@x,\pgf@y)}
+\global\expandafter\edef\csname #3\endcsname{\myheight}
+}
+\makeatother
+
+% Distância entre centros de dois nós
+\makeatletter
+\def\DistanciaCentros(#1,#2)#3{%
+\pgfpointdiff{\pgfpointanchor{#1}{center}}{\pgfpointanchor{#2}{center}}
+\pgfmathsetmacro{\myheight}{veclen(\pgf@x,\pgf@y)}
+\global\expandafter\edef\csname #3\endcsname{\myheight}
+}
+\makeatother
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% LISTA DE CÓDIGOS
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\newenvironment{code}{\captionsetup{type=listing}}{}
+
+\makeatletter
+\let\l@listing\l@figure
+\def\newfloat@listoflisting@hook{\let\figurename\listingname}
+\makeatother
+
+\SetupFloatingEnvironment{listing}{%
+  fileext=lol,
+  listname={Lista de códigos},
+  name=Código,
+  placement=p,
+  within=none,
+  chapterlistsgaps=on}
+
+\setminted{% bgcolor = gray!15, 
+            frame = lines,
+            mathescape,
+            autogobble,
+            %breakanywhere,
+            breaklines,
+            framesep = 2mm,
+            baselinestretch = 1.2,
+            fontsize = \footnotesize,
+            linenos
+}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% LISTA DE ALGORITMOS
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%\let\oldlistofalgorithms\listofalgorithms
+%\let\oldnumberline\numberline%
+%\newcommand{\algnumberline}[1]{Algoritmo~#1 -- }
+%\renewcommand{\listofalgorithms}{%
+%  \let\numberline\algnumberline%
+%  \oldlistofalgorithms
+%  \let\numberline\oldnumberline%
+%}
