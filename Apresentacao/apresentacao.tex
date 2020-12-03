@@ -2,22 +2,104 @@
 %%  Autor: Julio Batista Silva
 %%
 %%  Data inicial de criação: 14/Abr/2018
-%%  Data da última modificiação: 14/Abr/2018
+%%  Data da última modificação: 01/Jul/2018
 %%
 
 \documentclass[xcolor=x11names,compress]{beamer}
 
 %% General document %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\usepackage[brazil]{babel}
-\usepackage[utf8]{inputenc}
-\usepackage{graphicx}
-\usepackage{tikz}
+\usepackage[alf]{abntex2cite}	% Citações padrão ABNT
+\usepackage[brazil]{babel}		% Idioma do documento
+\usepackage{color}			    % Controle das cores
+\usepackage[T1]{fontenc}		% Selecao de codigos de fonte.
+\usepackage{graphicx}			% Inclusão de gráficos
+\usepackage[utf8]{inputenc}		% Codificacao do documento (conversão automática dos acentos)
+\usepackage{txfonts}			% Fontes virtuais
 \usepackage{hyperref}
 \usepackage{epigraph}
+\usepackage{colortbl}
+\usepackage{amsmath}
+\usepackage{icomma}             % Vírgula para separar decimal
+\usepackage{adjustbox}          % Reduz largura se necessário
+\usepackage{booktabs}           % Tabelas mais bonitas
+%\usepackage{showframe}         % Para debug
+\usepackage{wasysym}            % Símbolos
+\usepackage{siunitx}
+\usepackage[absolute,overlay]{textpos}
+\usepackage{subcaption}
+\usepackage{multirow}
+\usepackage{tikz}
+\usepackage{media9}             % Inclui vídeos
+\usepackage{minted}             % Pygments
+\usetikzlibrary{arrows,automata,calc,chains,fit,matrix,positioning,quotes,shadows,shapes,tikzmark,decorations.pathreplacing}
+
+\usepackage{pgfplots}
+\pgfplotsset{compat=newest,compat/show suggested version=false}
+
+
 \setlength{\epigraphwidth}{\textwidth}
 
+% Remove "Figura:" e "(a) (b) (c)" das captions e subcaptions
+\captionsetup[figure]{labelformat=empty}
+\captionsetup[sub]{labelformat=empty}
+
 \graphicspath{ {imagens/} }
+
+\newcommand*{\vpointer}{\vcenter{\hbox{\scalebox{1.2}{\Huge\pointer}}}} % Seta
+
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% TIKZ
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Tabelas
+\tikzset{square matrix/.style={
+    matrix of nodes,
+    column sep=-\pgflinewidth, row sep=-\pgflinewidth,
+    nodes={draw,
+      minimum height=#1,
+      anchor=center,
+      text width=#1,
+      align=center,
+      inner sep=0pt
+    },
+  },
+  square matrix/.default=2em
+}
+
+% Nó entre dois nós
+\tikzset{
+    between/.style args={#1 and #2}{
+         at = ($(#1)!0.5!(#2)$)
+    }
+}
+
+% Distância entre extremidades de dois nós
+\makeatletter
+\def\DistanciaExtremidades(#1,#2)#3{%
+\pgfpointdiff{\pgfpointanchor{#1}{west}}{\pgfpointanchor{#2}{east}}
+\pgfmathsetmacro{\myheight}{veclen(\pgf@x,\pgf@y)}
+\global\expandafter\edef\csname #3\endcsname{\myheight}
+}
+\makeatother
+
+% Distância entre centros de dois nós
+\makeatletter
+\def\DistanciaCentros(#1,#2)#3{%
+\pgfpointdiff{\pgfpointanchor{#1}{center}}{\pgfpointanchor{#2}{center}}
+\pgfmathsetmacro{\myheight}{veclen(\pgf@x,\pgf@y)}
+\global\expandafter\edef\csname #3\endcsname{\myheight}
+}
+\makeatother
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%Continua enumeration%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\newcounter{saveenumi}
+\newcommand{\seti}{\setcounter{saveenumi}{\value{enumi}}}
+\newcommand{\conti}{\setcounter{enumi}{\value{saveenumi}}}
+\resetcounteronoverlays{saveenumi}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 
 %% Beamer Layout %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -28,6 +110,10 @@
 
 \setbeamerfont{title like}{shape=\scshape}
 \setbeamerfont{frametitle}{shape=\scshape}
+
+\setbeamerfont{section in toc}{size=\normalsize}
+\setbeamerfont{subsection in toc}{size=\small}
+\setbeamerfont{subsubsection in toc}{size=\scriptsize}
 
 \setbeamercolor*{lower separation line head}{bg=DeepSkyBlue4}
 \setbeamercolor*{normal text}{fg=black,bg=white}
@@ -49,166 +135,60 @@
     \hspace{1em}%
     \insertframenumber/\inserttotalframenumber
 }
-
 %\setbeamertemplate{section in toc}[sections numbered]
 %\setbeamertemplate{subsection in toc}[subsections numbered]
 %\setbeamertemplate{subsubsection in toc}[subsubsections numbered]
 %\setcounter{section}{8}
 
+% Insere sumário em todo início de sessão
 \AtBeginSection[]
 {
-  \begin{frame}
-    \frametitle{Sumário}
-    \tableofcontents[currentsection]
+  \begin{frame}{Sumário}
+        \tableofcontents[currentsection, hideallsubsections]
   \end{frame}
 }
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
+\title{Explorando o algoritmo de Viola-Jones na detecção e reconhecimento facial}
+%\subtitle{Revisão Bibliográfica}
+\author{Julio Batista Silva}
+\titlegraphic{\includegraphics[scale=0.15]{ufscar.png}}
+\institute{Orientador: Prof. Dr. Alexandre Luis Magalhães Levada\\ Departamento de Computação\\
+Universidade Federal de São Carlos}
+\date{\today}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
 \begin{document}
 
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%FRAME - Capa%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begingroup
+\setbeamertemplate{navigation symbols}{}
+\begin{frame}[plain]
+    \titlepage
+\end{frame}
+\endgroup
 
-\begin{frame}
-\title{Explorando o algoritmo de Viola-Jones na detecção e reconhecimento facial}
-%\subtitle{}
-\author{
-    \centerline{\noindent\includegraphics[scale=0.15]{ufscar.png}}\\
-    {\it Universidade Federal de São Carlos}\\
-    Departamento de Computação\\
-    {Julio Batista Silva - 351202}\\
-    {Orientador: Prof. Dr. Alexandre Luis Magalhães Levada}\\
-}
-\date{\today}
-\titlepage
+
+%FRAME%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{Sumário}
+    \tableofcontents[subsubsectionstyle=hide]
 \end{frame}
 
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
-\begin{frame}
-    \frametitle{Sumário}
-    \tableofcontents
-\end{frame}
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%SEC%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
-\section{Introdução}
-\subsection{}
-
-\begin{frame}{XXXX}
-xxxxx
-\begin{itemize}
-    \item xxxxx.
-\end{itemize}
-
-\pause
-
-xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx?
-\begin{itemize}
-    \item xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx.
-\end{itemize}
-
-\pause
-
-xxxxxxxxxxxxxxxxxxxxxxxxxxxxx?
-\begin{itemize}
-    \item xxxxxxx
-    \item xxxxxxxxxxx
-    \item xxxxxxxx
-    \item xxxxxxxxxx
-\end{itemize}
-\end{frame}
-
-\begin{frame}
-    \centerline{\noindent\includegraphics[width=0.8\linewidth]{ufscar.png}}
-\end{frame}
-
-\begin{frame}{xxxxxxxxxxxxxxxxxxxxx}
-xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx:\\
-\begin{itemize}
-    \item \textbf{Xxxx} - xxxxxxxxxxxxxxxxxxx
-    \item \textbf{Xxxxxxxxx} - xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
-\end{itemize}
-\end{frame}
-
-\begin{frame}{xxxxxxxxxxxxxxxxxxxxx}
-\begin{itemize}
-    \item xxxxxxxxxxxxxxxxxxxxxx
-    \begin{block}{xxxxxxx}
-        xxxxxxxxxxxxxxxxxxx \textit{xxxxxxxx} xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx \textit{xxxxxxxx} xxxxxxxxxxxxxxxxxx
-    \end{block}
-\end{itemize}
-\end{frame}
-
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%SEC%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\section{Seção 2}
-%SUBSEC%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\subsection{}
-
-\begin{frame}{xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx}
-xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx?
-\begin{itemize}
-    \item xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
-\end{itemize}
-
-\pause
-
-xxxxxxxxxxxxxxxxxxxxx?
-\begin{itemize}
-    \item xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx.
-\end{itemize}
-\end{frame}
-
-
-%SUBSEC%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\subsection{xxxxxxxx}
-
-\begin{frame}{xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx}
-xxxxxxxxxxxxxxxxxxxxxxxx:
-\begin{itemize}
-    \item \textbf{xxxxxxxxxxxxxxxxxxxxxxx}:
-    \begin{itemize}
-        \item \it{xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx}
-        \item \it{xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx}
-        \item \it{xxxxxxxxxxxxxxxxx}
-    \end{itemize}
-    \pause
-
-    \item \textbf{xxxxxxxxxxxxxxxxxxxxxxxxxxx} - xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
-    \pause
-
-    \item \textbf{xxxxxxxxxxxxxxxxxxxxxxxx} - xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
-    \pause
-
-    \item \textbf{xxxxxxxxxxxxxxxxxxxxxxxxxxxxxx} - xxxxxxxxxxxxxxxxxxxx
-\end{itemize}
-\end{frame}
-
+\input{01-introducao.tex}
+\input{02-deteccao.tex}
+\input{03-reconhecimento.tex}
+\input{04-projeto.tex}
+\input{05-conclusoes.tex}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %SEC%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Referências}
-\begin{frame}{Referências}
 
-\begin{itemize}
-
-    \item \href{https://youtu.be/xxxxxxxxxxx}{youtu.be/xxxxxxxxxxx}
-    \item \href{https://youtu.be/xxxxxxxxxxx}{youtu.be/xxxxxxxxxxx}
-
-    \item \href{https://www.wikipedia.org/}{Wikipedia}
-    \begin{itemize}
-        \item \href{https://en.wikipedia.org/wiki/xxxxxxxxxxxxxxxxxxxxxx}{Wikipedia: xxxxxxxxxxxxxxxxxxxxxx}
-    \end{itemize}
-
-    \item \href{https://juliobs.com}{Site do Julio}
-
-\end{itemize}
-
+%FRAME%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}[allowframebreaks]{Referências}
+    \bibliography{referencias}
 \end{frame}
 
 \end{document}

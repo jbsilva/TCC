@@ -63,6 +63,8 @@ def le_imagens_de_treino(path, tam=None):
 
 
 def detecta_faces(imagem, classificador):
+    ''' Retorna uma lista com as coordenadas das faces detectadas na imagem
+    pelo classificador passado por parâmetro'''
     # Carrega o classificador em cascata passado por parâmetro
     classif = cv2.CascadeClassifier(classificador)
 
@@ -73,7 +75,7 @@ def detecta_faces(imagem, classificador):
     return faces
 
 
-def main(ARGS):
+def main():
 
     # Obtém imagens de treino com ids e nomes
     X, y, nomes = le_imagens_de_treino(ARGS.dir_treino, (200, 200))
@@ -143,7 +145,7 @@ def main(ARGS):
                 pasta = ARGS.dir_saida if ARGS.dir_saida else os.path.dirname(
                     img_path)
                 nome = f"{nome_certo}-{nome}-"
-                    f"{os.path.splitext(os.path.basename(img_path))[0]}.jpg"
+                       f"{os.path.splitext(os.path.basename(img_path))[0]}.jpg"
                 cv2.imwrite(os.path.join(pasta, nome), imagem)
                 logging.debug(f"Gravou em {os.path.join(pasta, nome)}.")
 
@@ -163,10 +165,8 @@ if __name__ == "__main__":
                         help='Caminho da pasta com imagens de treino')
     parser.add_argument('-i', '--imagens', nargs='*',
                         help='Caminho para imagens a serem reconhecidas')
-    parser.add_argument(
-        '-o',
-        '--dir_saida',
-        help='Caminho onde imagens com reconhecimento serão salvas')
+    parser.add_argument('-o', '--dir_saida',
+                        help='Caminho onde imagens com reconhecimento serão salvas')
     parser.add_argument('--version', action='version',
                         version='%(prog)s v' + __version__)
     ARGS = parser.parse_args()
@@ -180,7 +180,7 @@ if __name__ == "__main__":
     logging.debug("===================Iniciou o script===================")
 
     try:
-        sys.exit(main(ARGS))
+        sys.exit(main())
     except KeyboardInterrupt:
         logging.debug("=====================Interrompido=====================")
         sys.exit(0)

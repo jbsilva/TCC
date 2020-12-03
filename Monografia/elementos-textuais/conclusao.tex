@@ -1,34 +1,32 @@
 % ----------------------------------------------------------
 % Conclusão (outro exemplo de capítulo sem numeração e presente no sumário)
 % ----------------------------------------------------------
-% \chapter*[Conclusão]{Conclusão}
-% \addcontentsline{toc}{chapter}{Conclusão}
+\chapter*[Conclusão]{Conclusão}
+\addcontentsline{toc}{chapter}{CONCLUSÃO}
 % ----------------------------------------------------------
 
-O presente trabalho apresentou uma visão ampla dos conceitos e métodos de detecção e reconhecimento facial e explicações detalhadas sobre dois algoritmos, incluindo a implementação de sistemas computacionais capazes de detectar e reconhecer faces utilizando esses algoritmos.
+O presente trabalho apresentou uma visão ampla dos conceitos e métodos de detecção e reconhecimento facial e explicações detalhadas sobre os algoritmos Viola-Jones e Eigenfaces, incluindo a implementação de sistemas computacionais capazes de detectar e reconhecer faces utilizando esses algoritmos.
 
-Para alcançar o objetivo de fornecer uma base teórica para a implantação de um sistema de detecção e reconhecimento facial, foi necessária uma extensa pesquisa bibliográfica e a conclusão de cursos sobre visão computacional.
+Para alcançar o objetivo de fornecer uma base teórica para a implantação de um sistema de detecção e reconhecimento de faces, foi necessária uma extensa pesquisa bibliográfica e a conclusão de cursos sobre visão computacional.
+
+Foi possível mostrar a validade dos algoritmos Viola-Jones, Eigenfaces, Fisherfaces e LBPH utilizando a biblioteca OpenCV e comparar suas performances. Foi mostrado que a taxa de acertos do Eigenfaces é baixa quando comparada a outros métodos.
 
 Ficou claro que reconhecimento facial irrestrito ainda é um desafio na área de processamento de imagens e precisa superar diversas dificuldades geradas por fatores como iluminação, baixa resolução, variação de pose, oclusão e expressão facial.
 
-Foi possível mostrar a validade do algoritmo de Viola e Jones utilizando a biblioteca OpenCV.
+Foi mostrado que soluções comerciais, como a Face API da Microsoft, oferecem o estado da arte em diversas tarefas como detecção facial, reconhecimento facial, detecção de emoções e identificação de gênero.
 
-Dificuldades do treinamento: determinar taxas de detecção e falso-positivo, determinar número de estágios, tempo de treinamento x performance do detector.
+Foi mostrado que o Raspberry Pi pode ser utilizado como uma solução barata de câmera inteligente capaz de detectar e pré-processar as faces de forma a reduzir o tráfego e as chamadas à API.
 
-\section{Sugestão de melhorias e trabalhos futuros}
+\section*{Sugestão de melhorias e trabalhos futuros}
+\addcontentsline{toc}{section}{\protect\numberline{}Sugestão de melhorias e trabalhos futuros}
 
-Treinar um novo detector utilizando mais imagens positivas e negativas melhor selecionadas.
+A principal dificuldade em detecção de faces com Viola-Jones é obter um classificador que tenha altas taxas de detecção e poucos falso-positivos sem comprometer a performance.
 
-Usar valor mais baixo para taxa máxima de falso-positivo (maxFalseAlarmRate)
+O classificador treinado na \autoref{sec:treino_classificador} retornou muitos falso-positivos. Para resolver esse problema, deve-se utilizar mais imagens positivas e negativas, que devem ser bem selecionadas, aumentar o número de estágios da cascata e diminuir a taxa máxima de falso-positivos (maxFalseAlarmRate).
 
-Variar taxas de detecção e falso-positivo por estágio da cascata.
+O treinamento de um classificador em cascata com características Haar-like é muito demorado. Para agilizar o processo, ele pode ser treinado em uma arquitetura na nuvem como a Amazon EC2.
+Também é possível utilizar outros métodos como o Local Binary Patterns (LBP), que é mais rápido de treinar e possui uma acurácia comparável, o SURF cascade, que, além de ser mais rápido de treinar, possui maior acurácia de detecção \cite{li2013learning, fddbTech} ou métodos mais recentes baseados em redes neurais, como o RSA \cite{liu2017recurrent} e o S\textsuperscript{3}FD \cite{zhang2017s}.
 
-Usar mais estágios
+Pela pesquisa bibliográfica, foi possível verificar que redes neurais são o estado da arte em reconhecimento facial e extração de características. Um trabalho futuro poderia estudar esse assunto e desenvolver uma solução que não dependa de ferramentas comerciais como a Face API da Microsoft. Algumas bibliotecas podem ser utilizadas no lugar da OpenCV como a \textit{dlib} e a \textit{OpenFace}.
 
-Paralelização do processo
-
-Uso de arquitetura na nuvem como Amazon EC2
-
-Imprimir case em 3D para Raspberry Pi
-
-Utilizar algoritmos baseados em redes neurais ou soluções comerciais
+Uma última sugestão é imprimir um case em 3D que comporte a câmera de forma discreta e mantenha o Raspberry Pi resfriado.

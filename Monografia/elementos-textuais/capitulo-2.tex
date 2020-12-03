@@ -15,7 +15,7 @@ O detector de faces de Viola-Jones possui quatro estágios: seleção de caracte
 
 \section{Características Haar-like retangulares}\label{sec:haar_features}
 
-As características de Haar utilizadas por Viola-Jones, ilustradas na \autoref{fig:haar_like_features}, foram inspiradas nos trabalhos de \citeonline{papageorgiou1998general}, que descreveram características construídas a partir de um conjunto de ondaletas de Haar (Haar wavelets).
+As características de Haar utilizadas por Viola-Jones, ilustradas na \autoref{fig:haar_like_features}, foram inspiradas nos trabalhos de \citeonline{papageorgiou1998general}, que descreveram características construídas a partir de um conjunto de ondaletas de Haar (Haar wavelets). \index{Características!Haar-like}
 
 \begin{figure}[htbp]
     \centering
@@ -82,7 +82,7 @@ Quanto mais próximo de 1, mais semelhante é a imagem real da característica a
 
 Utilizar características é mais vantajoso do que trabalhar com cada pixel da imagem separadamente, pois é menos custoso computacionalmente e elas permitem reconhecer padrões determinados. A característica da \autoref{fig:haar_like_features:b} pode ser utilizada para reconhecer a região dos olhos, que costuma ser mais escura do que a região das bochechas, e a característica 3 pode ser usada para reconhecer a região do nariz, como mostrado na \autoref{fig:julio_haar}.
 
-Existem alternativas mais sofisticadas às características Haar-like, como filtros orientáveis (steerable filters) \cite{freeman1991design, greenspan1994overcomplete}, porém, segundo \citeonline{Viola01rapidobject}, a eficiência de características retangulares fornece ampla compensação por sua flexibilidade limitada.\index{alternativas às características Haar-like}
+Existem alternativas mais sofisticadas às características Haar-like, como filtros orientáveis (steerable filters) \cite{freeman1991design, greenspan1994overcomplete}, porém, segundo \citeonline{Viola01rapidobject}, a eficiência de características retangulares fornece ampla compensação por sua flexibilidade limitada.\index{Características!alternativas}
 
 \begin{figure}[htbp]
    \caption{Características propostas por Lienhart e Maydt}
@@ -92,7 +92,7 @@ Existem alternativas mais sofisticadas às características Haar-like, como filt
    \end{center}
 \end{figure}
 
-Em \citeonline{lienhart2002extended} foram propostas novas características contendo rotações de \ang{45}, mostradas na \autoref{fig:lienhart_haar_features}. Segundo os autores, o uso dessas características reduziu em 10\%, em média, o número de alarmes falsos. \citeonline{messom2009stream} estenderam essa ideia para rotações de qualquer ângulo, ao custo dos erros de arredondamento.\index{características Haar-like contendo rotação}
+Em \citeonline{lienhart2002extended} foram propostas novas características contendo rotações de \ang{45}, mostradas na \autoref{fig:lienhart_haar_features}. Segundo os autores, o uso dessas características reduziu em 10\%, em média, o número de alarmes falsos. \citeonline{messom2009stream} estenderam essa ideia para rotações de qualquer ângulo, ao custo dos erros de arredondamento.\index{Características!com rotação}
 
 \begin{figure}[htbp]
     \caption{Características usadas para detectar olhos e nariz}
@@ -118,6 +118,7 @@ Para uma imagem com resolução de $24\times24$ pixels, pode-se construir dezena
 
 
 \section{Imagem Integral}\label{sec:imagem_integral}
+\index{Imagem Integral}
 
 O algoritmo da imagem integral, proposto por \citeonline{crow1984summed} para mapeamento de texturas (mipmaps), é capaz de calcular rapidamente a soma dos valores em um subconjunto retangular de uma matriz.
 
@@ -201,14 +202,15 @@ Utilizando a imagem integral, a soma dos níveis de cinza de qualquer área reta
                                  &= 3,7 + 0,2 - (0,5 + 1,7) = 1,7\nonumber
 \end{align}
 
-O cálculo de características compostas por dois retângulos (1 e 2 da \autoref{fig:haar_like_features}), requerem seis referências à memória, as características compostas por três retângulos (3) requerem oito acessos e as compostas por quatro retângulos (4) requer nove acessos.
+O cálculo de características compostas por dois retângulos (\autoref{fig:haar_like_features:a} e \autoref{fig:haar_like_features:b}), requerem seis referências à memória, as características compostas por três retângulos (\autoref{fig:haar_like_features:c}) requerem oito acessos e as compostas por quatro retângulos (\autoref{fig:haar_like_features:d}) requerem nove acessos.
 
 
 \section{AdaBoost}\label{sec:adaboost}
+\index{AdaBoost}
 
-Apesar do cálculo de cada característica ser rápido, calcular todo o conjunto de características é inviável. Experimentalmente descobriu-se que um classificador eficiente pode ser formado combinando um pequeno subconjunto com apenas as características mais representativas. O algoritmo de Viola-Jones utiliza uma variante do AdaBoost para selecionar essas características e treinar o classificador.
+Apesar do cálculo de cada característica ser rápido, calcular todo o conjunto de características é inviável. Experimentalmente, descobriu-se que um classificador eficiente pode ser formado combinando um pequeno subconjunto com apenas as características mais representativas. O algoritmo de Viola-Jones utiliza uma variante do AdaBoost para selecionar essas características e treinar o classificador.
 
-O AdaBoost é um método de aprendizado de máquina, inventado por Yoav Freund e Robert Schapire\cite{freund1997decision}, que combina de forma ponderada vários classificadores fracos com taxa de acerto acima de 50\% para obter um classificador forte.
+O AdaBoost é um método de aprendizado de máquina, inventado por Yoav Freund e Robert Schapire \cite{freund1997decision}, que combina de forma ponderada vários classificadores fracos com taxa de acerto acima de 50\% para obter um classificador forte.
 
 Um classificador fraco $h_{j}(x,f_{j},p_{j},\theta_{j})$ consiste em uma característica $f_{j}$, um limite $\theta_{j}$, que decide se x deve ser classificado como positivo (uma face) ou negativo (não face), e uma paridade $p_{j}$, que indica a direção da desigualdade:
 %
@@ -223,6 +225,7 @@ Um classificador fraco $h_{j}(x,f_{j},p_{j},\theta_{j})$ consiste em uma caracte
 onde $x$ é uma janela de $24\times24$ pixels de uma imagem.
 
 O algoritmo AdaBoost pode ser descrito pelo \autoref{alg:adaboost}. O \refanexo{cap:anexo_adaboost_python} contém uma implementação em Python.
+\index{AdaBoost!algoritmo}
 
 \begin{algorithm}[htbp]
 \caption{AdaBoost}
@@ -235,7 +238,9 @@ T classificadores fracos}
 \Saida{Um classificador forte $H(x)$}
 \BlankLine
 \tcp{Inicia com uma distribuição uniforme de pesos}
+\Para{$i \leftarrow 1$ \Ate n}{
 \eSe{$x_{i}$ tem face}{$w_{1,i} \leftarrow \frac{1}{2l}$}{$w_{1,i} \leftarrow \frac{1}{2m}$}
+}
 \BlankLine
 \tcp{Cada iteração seleciona um único classificador fraco}
 \Para{$t \leftarrow 1$ \Ate T}{
@@ -279,6 +284,7 @@ Câmeras digitais tiram fotos com vários megapixels de resolução.
 Uma imagem de 1 MP possui $10^6$ pixels, portanto a taxa de falso-positivos desejada nesse caso é de menos de $10^{-6}$.
 
 \section{Classificadores em Cascata}\label{sec:cascade}
+\index{Classificador}
 
 \begin{figure}[htbp]
     \caption{Classificadores em cascata}
@@ -372,6 +378,7 @@ A \autoref{fig:roc_200_features_x_cascade} apresenta uma comparação entre um c
 
 
 \subsection{Treino da cascata de classificadores}
+\index{Classificador!treinamento}
 
 A taxa de falso-positivos de uma cascata de classificadores é:
 %
@@ -426,6 +433,14 @@ $i \leftarrow 0$
         Avalia o detector atual no conjunto de imagens sem faces e insere todas as detecções falsas ao conjunto N.
     }
 }
-\end{algorithm}
+\end{algorithm} \index{Classificador!algoritmo}
 
 Classificadores com mais características obtém maiores taxas de detecção e menos falso-positivos, porém requerem maior tempo de cálculo.
+
+\begin{figure}[htbp]
+   \caption[FDDB Benchmark]{Curvas COR comparando vários algoritmos de detecção facial no FDDB benchmark \cite{fddbTech}}
+   \label{fig:roc_fddb_benchmark}
+   \begin{center}
+     \includegraphics[width=\textwidth]{imagens/FDDB_deteccao_compara.png}
+   \end{center}
+\end{figure}

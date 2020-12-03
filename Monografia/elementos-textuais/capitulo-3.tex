@@ -2,19 +2,20 @@
 
 %\chapterprecis{Detecção facial utilizando a biblioteca OpenCV.}
 
-OpenCV (Open Source Computer Vision Library) é uma biblioteca multiplataforma de código aberto (licença BSD) voltada principalmente para aplicações de visão computacional em tempo real \cite{kaehler2016learning}. Ela foi lançada oficialmente em 1999 pela Intel Corporation e continua em constante desenvolvimento.
+OpenCV (Open Source Computer Vision Library) é uma biblioteca multiplataforma de código aberto (licença BSD) voltada principalmente para aplicações de visão computacional em tempo real \cite{kaehler2016learning}. Ela foi lançada oficialmente em 1999 pela Intel Corporation e continua em constante desenvolvimento. \index{OpenCV}
 Apesar de ser escrita em C e C++, existem interfaces em diversas outras linguagens, como Python, Java e MATLAB.
 
-\section{Bases de faces para treino e testes}\label{sec:banco_faces}
+\section{Bases de faces para treino e testes}\label{sec:base_faces}
+\index{Bases de faces}
 
-Existe uma grande quantidade de bancos de imagens de faces disponíveis para treinar e testar algoritmos de detecção e reconhecimento facial, cada uma com características próprias \cite{grgic2013face, huang2007labeled, mozaffari2011twins}. A \autoref{tab:banco_faces} lista alguns deles.
+Existe uma grande quantidade de bases de imagens de faces disponíveis para treinar e testar algoritmos de detecção e reconhecimento facial, cada uma com características próprias \cite{grgic2013face, huang2007labeled, mozaffari2011twins}. A \autoref{tab:bases_faces} lista alguns deles.
 
 \begin{longtabu} to \textwidth { >{\footnotesize}X[3,l] >{\footnotesize}X[1,l] >{\footnotesize}X[1,l] >{\footnotesize}X[3,l] }
-\caption{Bancos de imagens de faces}
-\label{tab:banco_faces}\\
-\textbf{Banco de imagens}                                                            & \textbf{Indivíduos}  & \textbf{Imagens}                & \textbf{Comentários}                                                    \\\hline
+\caption{Bases de imagens de faces}
+\label{tab:bases_faces}\\
+\textbf{Bases de imagens}                                                            & \textbf{Indivíduos}  & \textbf{Imagens}                & \textbf{Comentários}                                                    \\\hline
 \endfirsthead
-\textbf{Banco de imagens}                                                            & \textbf{Indivíduos}  & \textbf{Imagens}                & \textbf{Comentários}                                                    \\\hline
+\textbf{Bases de imagens}                                                            & \textbf{Indivíduos}  & \textbf{Imagens}                & \textbf{Comentários}                                                    \\\hline
 \endhead
 AR Face Database                                  \cite{martinez1998ar}              & 126                  & 4000                            & Pose frontal, expressão, iluminação, oclusão (óculos, cachecol)         \\\hline
 AT\&T Database                                    \cite{samaria1994parameterisation} & 40                   & 400                             & Variação temporal, iluminação, expressão, óculos                        \\\hline
@@ -50,34 +51,38 @@ University of Oulu Physics-Based Face Database    \cite{marszalec2000physics}   
 VALID Database                                    \cite{fox2005realistic}            & 106                  & 530                             & Condições de escritório altamente variáveis                             \\\hline
 VidTIMIT Database                                 \cite{sanderson2008biometric}      & 43                   & Múltiplos vídeos por pessoa     & Vídeo, áudio, rotação de cabeça                                         \\\hline
 Yale Face Database                                \cite{belhumeur1997eigenfaces}     & 15                   & 165                             & Tons de cinza, expressões, óculos, iluminação                           \\\hline
-Yale Face Database B                              \cite{georghiades2001few}          & 10                   & 5760                            & Pose, iluminação
+Yale Face Database B                              \cite{georghiades2001few}          & 10                   & 5760                            & Pose, iluminação                                                        \\\hline
+Yale Face Database B Extended                     \cite{kclee05}                     & 38                   & 2452\footnotemark               & Nove poses e 64 condições de iluminação
 \end{longtabu}
 
+\footnotetext{O site diz 16128 imagens de 28 indivíduos, porém o arquivo disponível para download contém mais imagens.}
 
-Este trabalho utilizou quatro dessas bases:
+
+Este trabalho utilizou quatro dessas bases para treinar e avaliar o detector facial:
 
 \begin{description}
-\item [FERET] 
-É um banco de faces criado por P. Jonathon Phillips e Harry Wechsler entre 1993 e 1996 como parte do programa FERET (Facial Recognition Technology), patrocinado pelo Departamento de Defesa dos Estados Unidos.
+\item [FERET] \index{Bases de faces!FERET}
+É uma base de faces criada por P. Jonathon Phillips e Harry Wechsler entre 1993 e 1996 como parte do programa FERET (Facial Recognition Technology), patrocinado pelo Departamento de Defesa dos Estados Unidos.
 A cópia utilizada neste trabalho foi obtida através de solicitação por email ao NIST (\textit{National Institute of Standards and Technology}).
 Esta base contém 14126 imagens tiradas em condições controladas com algumas variações de ângulo e expressão.
 Alguns dos indivíduos foram fotografados múltiplas vezes em diferentes anos, o que permite estudar mudanças de aparência.
 Para o treino do classificador, foram selecionadas apenas 2409 fotos frontais.
 
-\item [FEI]
-É um banco de criado pelo laboratório de processamento de imagens do Centro Universitário FEI em São Bernardo do Campo. Ele é composto por 14 imagens de 200 indivíduos (100 homens e 100 mulheres), totalizando 2800 fotografias. Todas as imagens são coloridas e com fundo branco.
+\item [FEI] \index{Bases de faces!FEI}
+É uma base de faces criada pelo laboratório de processamento de imagens do Centro Universitário FEI em São Bernardo do Campo. Ela é composta por 14 imagens de 200 indivíduos (100 homens e 100 mulheres), totalizando 2800 fotografias. Todas as imagens são coloridas e com fundo branco.
 Para o treino do classificador, foram utilizadas 400 fotos frontais.
 
-\item [Caltech 10000 Web Faces]
-É um banco que contém 10524 faces em 7092 imagens obtidas da internet. As coordenadas dos olhos, nariz e centro da boca estão anotadas em um arquivo, o que permitiu cortar as imagens para serem usadas no treinamento do classificador. Algumas imagens foram excluídas por não mostrar suficientemente o rosto, estarem muito rotacionadas ou não possuírem resolução suficiente.
+\item [Caltech 10000 Web Faces] \index{Bases de faces!Caltech}
+É uma base que contém 10524 faces em 7092 imagens obtidas da internet. As coordenadas dos olhos, nariz e centro da boca estão anotadas em um arquivo, o que permitiu cortar as imagens para serem usadas no treinamento do classificador. Algumas imagens foram excluídas por não mostrar suficientemente o rosto, estarem muito rotacionadas ou não possuírem resolução suficiente.
 
-\item [LFW]
-(Labeled Faces in the Wild). É um banco de 13233 imagens coletadas da internet criado e distribuído pela universidade de Massachussetts para estudar reconhecimento facial irrestrito.
+\item [LFW] \index{Bases de faces!LFW}
+(Labeled Faces in the Wild). É uma base de 13233 imagens coletadas da internet criado e distribuído pela universidade de Massachussetts para estudar reconhecimento facial irrestrito.
 Essa base foi utilizada apenas para testar o classificador.
 \end{description}
 
 
 \section{Treino do Classificador}\label{sec:treino_classificador}
+\index{Classificador!Treinamento}
 
 \subsection{Imagens de treinamento}\label{sec:imagens_de_treino}
 
@@ -85,7 +90,7 @@ Para treinar um classificador, é preciso um conjunto de imagens positivas (imag
 
 \citeonline{viola2004robust} usaram 4916 imagens positivas e 9500 imagens negativas, posteriormente, \citeonline{lienhart2003empirical} concluíram que, nas condições usadas por eles, utilizar mais do que 5000 imagens positivas e 3000 imagens negativas traz pouco benefício para o resultado do treinamento.
 
-Imagens positivas podem ser obtidas de algum banco listado na \autoref{sec:banco_faces}. Se o banco escolhido não possuir uma quantidade suficiente de exemplos, é possível aplicar transformações como rotação, inversão e alteração de intensidade às imagens existentes.
+Imagens positivas podem ser obtidas de alguma base listada na \autoref{sec:base_faces}. Se a base escolhida não possuir uma quantidade suficiente de exemplos, é possível aplicar transformações como rotação, inversão e alteração de intensidade às imagens existentes.
 
 Após obter imagens positivas, é preciso identificar onde as faces estão localizadas utilizando um arquivo com formato específico, no qual cada linha contém o caminho da imagem, a quantidade de faces marcadas e coordenadas que descrevem retângulos em volta das faces.
 
@@ -99,9 +104,9 @@ O OpenCV possui uma ferramenta chamada \texttt{opencv\_annotation} que permite m
    \end{center}
 \end{figure}
 
-Se as imagens contiverem apenas faces já cortadas, é possível gerar o arquivo de anotações com o comando \mintinline[breaklines]{bash}{$ find positivas/ -name "*.jpg" -exec identify -format '%i 1 0 0 %w %h\n' {} \; > anotacoes.txt}.
+Se as imagens contiverem apenas faces já cortadas, é possível gerar o arquivo de anotações com o comando \mintinline[breaklines]{bash}{find positivas/ -name "*.jpg" -exec identify -format '%i 1 0 0 %w %h\n' {} \; > anotacoes.txt}.
 
-Também é preciso listar as imagens negativas, o que pode ser feito com o comando \mintinline[breaklines]{bash}{$ find negativas/ -name "*.jpg" > negativas.txt}.
+Também é preciso listar as imagens negativas, o que pode ser feito com o comando \mintinline[breaklines]{bash}{find negativas/ -name "*.jpg" > negativas.txt}.
 
 
 \subsection{Treinamento}\label{sec:treinamento}
@@ -115,12 +120,12 @@ Também é preciso listar as imagens negativas, o que pode ser feito com o coman
 \end{figure}
 
 A OpenCV também possui ferramentas para o treinamento do classificador. 
-Primeiro é necessário criar um arquivo de vetor com o comando \texttt{opencv\_createsamples}, passando a quantidade de exemplos, a largura e a altura como parâmetros. Exemplo: \mintinline[breaklines]{bash}{$ opencv_createsamples -info anotacoes.txt -num 2400 -w 24 -h 24 -vec positivas_24x24.vec}.
+Primeiro é necessário criar um arquivo de vetor com o comando \texttt{opencv\_createsamples}, passando a quantidade de exemplos, a largura e a altura como parâmetros. Exemplo: \mintinline[breaklines]{bash}{opencv_createsamples -info anotacoes.txt -num 2400 -w 24 -h 24 -vec positivas_24x24.vec}.
 
-Para visualizar as imagens inseridas no vetor, basta usar o mesmo comando, mas passando o vetor como parâmetro: \mintinline[breaklines]{bash}{$ opencv_createsamples -vec positivas_24x24.vec -w 24 -h 24}.
+Para visualizar as imagens inseridas no vetor, basta usar o mesmo comando, mas passando o vetor como parâmetro: \mintinline[breaklines]{bash}{opencv_createsamples -vec positivas_24x24.vec -w 24 -h 24}.
 
 Finalmente, o classificador em cascata é treinado com o comando \texttt{opencv\_traincascade}, que recebe como parâmetros um diretório onde o classificador será salvo, o arquivo de vetor gerado anteriormente, a lista de imagens negativas, a quantidade de imagens positivas e negativas, o número e estágios da cascata e as dimensões das imagens no vetor.
-Exemplo: \mintinline[breaklines]{bash}{$ opencv_traincascade -data classificador/ -vec positivas_24x24.vec -bg negativas.txt -numPos 2000 -numNeg 1000 -numStages 10 -w 24 -h 24}.
+Exemplo: \mintinline[breaklines]{bash}{opencv_traincascade -data classificador/ -vec positivas_24x24.vec -bg negativas.txt -numPos 2000 -numNeg 1000 -numStages 10 -w 24 -h 24}.
 
 \begin{figure}[htbp]
     \centering
@@ -153,7 +158,7 @@ Pela \autoref{fig:detector_facial_lfw}, é possível perceber que o classificado
     \caption{Captura de tela do \autoref{cod:detector_facial_opencv} em execução.}
     \label{fig:detector_facial}
     \begin{center}
-        {\includegraphics[width=0.4\linewidth]{imagens/detector_facial.png}}
+        {\includegraphics[width=0.55\linewidth]{imagens/detector_facial.png}}
     \end{center}
 \end{figure}
 
@@ -161,6 +166,6 @@ Pela \autoref{fig:detector_facial_lfw}, é possível perceber que o classificado
     \caption{Teste do classificador em cascata com imagens da Labeled Faces in the Wild}
     \label{fig:detector_facial_lfw}
     \begin{center}
-        {\includegraphics[width=0.99\linewidth]{imagens/detector_facial_lfw.jpg}}
+        {\includegraphics[width=0.95\linewidth]{imagens/detector_facial_lfw.jpg}}
     \end{center}
 \end{figure}
